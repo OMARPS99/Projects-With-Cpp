@@ -31,7 +31,7 @@ struct stClient
     string Name;
     string Phone;
     double AccountBalance;
-    short NumberOperations;
+    short OperationsNumber;
 };
 
 struct stUsers
@@ -149,7 +149,7 @@ void ShowClientData () {
     cout << "Name            : " << ClientSession.Name << endl;
     cout << "Phone           : " << ClientSession.Phone << endl;
     cout << "Account Balance : " << ClientSession.AccountBalance << endl;
-    cout << "Number of recent Transactions : " << ClientSession.NumberOperations << endl;
+    cout << "Number of recent Transactions : " << ClientSession.OperationsNumber << endl;
     cout << "---------------------------------\n\n";
 }
 
@@ -253,7 +253,7 @@ void ShowALLClientsData ( vector <stClient> vClients ) {
         cout << "| " << left << setw(30) << Client.Name;
         cout << "| " << left << setw(12) << Client.Phone;
         cout << "| " << left << setw(12) << Client.AccountBalance;
-        cout << "| " << left << setw(26) << Client.NumberOperations;
+        cout << "| " << left << setw(26) << Client.OperationsNumber;
         cout << "\n";
     }
     cout << "\n__________________________________________________________________________________________________________\n\n";
@@ -408,7 +408,7 @@ string ConvertRecordToLineForClient ( stClient ClientData ) {
     ClientData.Name                     + Delim +
     ClientData.Phone                    + Delim +
     to_string(ClientData.AccountBalance)+ Delim +
-    to_string(ClientData.NumberOperations);
+    to_string(ClientData.OperationsNumber);
 
     return stClientRecord ;
 }
@@ -423,7 +423,7 @@ stClient ConvertLineToStructForClient ( string LineRecord ) {
     Client.Name =                vClientData[2];
     Client.Phone =               vClientData[3];
     Client.AccountBalance =      stod(vClientData[4]);
-    Client.NumberOperations = stod(vClientData[5]);
+    Client.OperationsNumber = stod(vClientData[5]);
 
     return Client;
 }
@@ -489,8 +489,8 @@ void IncreaseNumberOperations ( vector <stClient>& vClients, short NumberAdditio
     {
         if (Client.AccountNumber == ClientSession.AccountNumber){
 
-            Client.NumberOperations        += NumberAdditions;
-            ClientSession.NumberOperations += NumberAdditions;
+            Client.OperationsNumber        += NumberAdditions;
+            ClientSession.OperationsNumber += NumberAdditions;
 
             MyFile << ConvertRecordToLineForClient(Client) << endl;
         }
@@ -727,7 +727,7 @@ void DeleteClientTransactions (vector <stTransactions>& vTransactionsData, vecto
     for (stClient& Client : vClients)
     {
         if (Client.AccountNumber == ClientSession.AccountNumber) {
-            Client.NumberOperations = 0;
+            Client.OperationsNumber = 0;
             MyFile2 << ConvertRecordToLineForClient(Client) << endl;
         }
         else {
@@ -756,7 +756,7 @@ void DeleteAllClientsTransactions (vector <stClient>& vClients) {
         fstream MyFile2;
         MyFile2.open(ClientsFile, ios::out);
         for (stClient& Client : vClients) {
-            Client.NumberOperations = 0;
+            Client.OperationsNumber = 0;
             MyFile2 << ConvertRecordToLineForClient(Client) << endl;
         } 
         MyFile2.close(); 
@@ -769,7 +769,7 @@ void DeleteAllClientsTransactions (vector <stClient>& vClients) {
 
 void UploadAccountTransactionsToFile ( vector <stClient>& vClients, int AmountMoney, double AccountBalance ) {
 
-    if ( ClientSession.NumberOperations >= MaxTransactions ) {
+    if ( ClientSession.OperationsNumber >= MaxTransactions ) {
         DeleteTransactionsFromFileAutomatically();
         IncreaseNumberOperations (vClients, (DeletedTransactions * -1));
     }
@@ -802,7 +802,7 @@ stClient ReadNewClientAndUpdateClient ( vector <stClient> vClients, bool AddNewC
         cout << "Enter Account Number ? ";
         getline(cin >> ws, Client.AccountNumber);
 
-        Client.NumberOperations = ClientSession.NumberOperations = 0;
+        Client.OperationsNumber = ClientSession.OperationsNumber = 0;
         
         while (!SearchForClientAndUploadInfo(vClients, Client.AccountNumber))
         {
@@ -812,7 +812,7 @@ stClient ReadNewClientAndUpdateClient ( vector <stClient> vClients, bool AddNewC
     }
     else {
         Client.AccountNumber = AccountNumber;
-        Client.NumberOperations = ClientSession.NumberOperations;
+        Client.OperationsNumber = ClientSession.OperationsNumber;
     }
     
     cout << "Enter PinCode ? ";
