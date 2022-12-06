@@ -476,7 +476,7 @@ void LoginClient ( vector <stClient> vClients ) {
         return;
     }
     else {
-        cout << "\nClient with Account Number (" << AccountNumber << ") Not Found!\nEnter exit to return to the Main Menu.\n" << endl;
+        cout << "\nClient with Account Number (" << AccountNumber << ") Not Found!\nEnter \"exit\" to return to the Main Menu Or Again ";
         return LoginClient(vClients);
     }
 }
@@ -964,9 +964,9 @@ void DeleteClient ( vector <stClient>& vClients ) {
     if (AccountNumber == "exit")
         return;
 
-    if ( SearchForClientAndUploadInfo( vClients, AccountNumber ) ) {
-            cout << "\nClient with Account Number (" << AccountNumber << ") Not Found!\nEnter exit to return to the Main Menu.\n" << endl;
-            return DeleteClient(vClients);
+    if (SearchForClientAndUploadInfo(vClients, AccountNumber)) {
+        cout << "\nClient with Account Number (" << AccountNumber << ") Not Found!\nEnter \"exit\" to return to the Main Menu Or Again ";
+        return DeleteClient(vClients);
     }
 
     if ( toupper(GetChar("\nAre you sure you delete this client Y/N ? ")) == 'Y' )
@@ -1005,7 +1005,7 @@ void DeleteUser ( vector <stUsers>& vUsers ) {
     }
         
     if ( SearchUser( vUsers, UserName ) ) {
-        cout << "\nClient with Account Number (" << UserName << ") Not Found!\nEnter exit to return to the Manage Users Menu.\n" << endl;
+        cout << "\nUser with User Name (" << UserName << ") Not Found!\nEnter \"exit\" to return to the Main Menu Or Again ";
         return DeleteUser(vUsers);
     }
 
@@ -1029,7 +1029,7 @@ void UpdateClientInfo ( vector <stClient>& vClients ) {
         return;
 
     if ( SearchForClientAndUploadInfo( vClients, AccountNumber ) ) {
-        cout << "\nClient with Account Number (" << AccountNumber << ") Not Found!\nEnter exit to return to the Main Menu.\n" << endl;
+        cout << "\nClient with Account Number (" << AccountNumber << ") Not Found!\nEnter \"exit\" to return to the Main Menu Or Again ";
         return UpdateClientInfo(vClients);
     }
 
@@ -1062,7 +1062,7 @@ void UpdateUserInfo ( vector <stUsers>& vUsers ) {
     }
 
     if ( SearchUser( vUsers, UserName ) ) {
-            cout << "\nClient with Account Number (" << UserName << ") Not Found!\nEnter exit to return to the Manage Users Menu.\n" << endl;
+            cout << "\nUser with User Name (" << UserName << ") Not Found!\nEnter \"exit\" to return to the Main Menu Or Again ";
             return  UpdateUserInfo(vUsers);
     }
 
